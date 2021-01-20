@@ -25,14 +25,42 @@ class ViewController: UIViewController {
 
 }
 
+class ViewController2: UIViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+       
+        view.backgroundColor = .red
+    }
+    
+    
+}
+
+// bridge between uikit view controller and swift ui view
+struct VC2View : UIViewControllerRepresentable {
+    
+    func makeUIViewController(context: Context) -> ViewController2 {
+        return ViewController2()
+    }
+    
+    func updateUIViewController(_ uiViewController: ViewController2, context: Context) {
+        
+    }
+}
+
 struct Page : View {
     
+    @State var showSheet = false
     var cb : (String)->Void
 
     var body : some View{
         
         Button("click me"){
-            cb("data from swiftt ui view ")
+            showSheet = !showSheet
+        }
+        
+        .sheet(isPresented: $showSheet) {
+            VC2View()
         }
         
         
