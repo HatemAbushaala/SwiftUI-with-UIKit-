@@ -13,7 +13,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        let page = UIHostingController(rootView:Page() )
+        let page = UIHostingController(rootView:Page(cb: { (String) in
+            print("string is \(String)")
+            self.dismiss(animated: true, completion: nil)
+        }) )
    
         //navigationController?.pushViewController(page, animated: true)
         present(page, animated: true, completion: nil)
@@ -23,7 +26,16 @@ class ViewController: UIViewController {
 }
 
 struct Page : View {
+    
+    var cb : (String)->Void
+
     var body : some View{
-        Text("hello")
+        
+        Button("click me"){
+            cb("data from swiftt ui view ")
+        }
+        
+        
+        
     }
 }
